@@ -8,10 +8,10 @@
 * Return: nothing.
 **/
 
-int partition(int *array, int low, int high)
+int partition(int *array, int low, int high, size_t size)
 {
 	int pivot = array[high], temp, j;
-	unsigned int i = low - 1;
+	int i = low - 1;
 
 	for (j = low; j < high; j++)
 	{
@@ -21,12 +21,12 @@ int partition(int *array, int low, int high)
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
-			print_array(array, high + 1);
 		}
 	}
 	temp = array[i + 1];
 	array[i + 1] = array[high];
 	array[high] = temp;
+	print_array(array, size);
 	return (i + 1);
 }
 
@@ -38,15 +38,15 @@ int partition(int *array, int low, int high)
 * Return: nothing.
 **/
 
-void quick_sort_bis(int *array, int low, int high)
+void quick_sort_bis(int *array, int low, int high, size_t size)
 {
 	int pi;
 
 	if (low < high)
 	{
-		pi = partition(array, low, high);
-		quick_sort_bis(array, low, pi - 1);
-		quick_sort_bis(array, pi + 1, high);
+		pi = partition(array, low, high, size);
+		quick_sort_bis(array, low, pi - 1, size);
+		quick_sort_bis(array, pi + 1, high, size);
 	}
 }
 
@@ -62,5 +62,5 @@ void quick_sort(int *array, size_t size)
 	if (size < 2)
 		return;
 
-	quick_sort_bis(array, 0, size - 1);
+	quick_sort_bis(array, 0, size - 1, size);
 }
